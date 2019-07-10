@@ -9,13 +9,14 @@ import { getCurrentUser, noToken } from '../actions'
 import HomePage from '../components/HomePage';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  state = { 
+    token: ""
   }
 
   componentDidMount() {
     var token = localStorage.getItem('authToken') || '';
     if(token) {
+      this.setState({token: token})
       this.props.dispatch(getCurrentUser())
     } else {
       this.props.dispatch(noToken());

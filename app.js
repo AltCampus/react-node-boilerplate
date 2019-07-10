@@ -40,10 +40,11 @@ app.use('/dist/bundle', expressStaticGzip(path.join(__dirname, 'dist/bundle'), {
 
 // fix depreciation warning.
 mongoose.set('useFindAndModify', false);
+mongoose.set('useNewUrlParser', true);
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost:27017/node_react_bp', { useNewUrlParser: true }, function (err) {
-  console.log('connected ?', err ? false : true);
+mongoose.connect('mongodb://localhost:27017/node_react_bp', function (err) {
+  console.log('mongodb connected ?', err ? false : true);
 });
 
 // webpack
@@ -63,8 +64,8 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Route handler
-app.use('/api/v1', apiRouter)
-app.use('/', indexRouter);
+app.use('/api/v1', apiRouter) // api route handler
+app.use('/', indexRouter); // react handler
 
 
 // catch 404 and forward to error handler
